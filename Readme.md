@@ -4,6 +4,8 @@ This template allows the creation of simple, responsive course websites for coll
 
 This template also attempts to bake in support for IE8 using [html5shiv](https://github.com/aFarkas/html5shiv), [respond.js](https://github.com/scottjehl/Respond), and [css3-mediaqueries.js](https://code.google.com/p/css3-mediaqueries-js/).
 
+You [can view a sample course at http://andrew.pilsch.com/courses/sample-course/](http://andrew.pilsch.com/courses/sample-course/)
+
 ## Setup
 
 ### Dependencies
