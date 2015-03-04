@@ -46,7 +46,7 @@ page_link_name: "Schedule"
 			# Open a new week if we're at the start of the week:
 			if current_meeting == 0%>
 	<div class="week">
-		<h3>Week <%= current_week%></h3>
+		<h3>Week <%= current_week%> <%= if data['schedule'].has_key? 'weeks' and data['schedule']['weeks'].has_key? current_week then data['schedule']['weeks'][current_week] end %></h3>
 			<%
 				current_week += 1
 			end 
