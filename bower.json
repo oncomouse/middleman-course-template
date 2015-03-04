@@ -1,0 +1,22 @@
+{
+  "name": "middleman-course-template",
+  "version": "0.0.0",
+  "authors": [
+    "oncomouse <oncomouse@gmail.com>"
+  ],
+  "description": "Template for building course websites in Middleman.",
+  "main": "config.rb",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "source/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": ">=3.3.3"
+  }
+}

@@ -1,0 +1,72 @@
+// Change any settings here, especially the course color and the complement color:
+
+@import 'libraries/sasscolors';
+
+$course-color: $galliano;
+$complement-color: invert($course-color);
+
+// You may need to change these values, depending on how dark or light your course color is:
+$course-color-dark: darken($course-color, 10%);
+$course-color-darker: darken($course-color, 15%);
+$course-color-light: lighten($course-color, 20%);
+$course-color-lighter: lighten($course-color, 40%);
+
+// Bootstrap Overrides:
+$brand-primary: $course-color;
+
+$body-bg: $course-color;
+$text-color: $black;
+
+$link-color: $course-color-dark;
+$link-hover-color: $complement-color;
+
+$font-size-base: 16px;
+$font-size-small: ceil(($font-size-base * 0.9));
+$line-height-base: 1.5;
+$line-height-computed: $font-size-base * $line-height-base;
+
+$headings-font-weight: 700;
+
+//$grid-float-breakpoint: 992px;
+
+$navbar-default-bg: $course-color-lighter;
+$navbar-default-color: $course-color-dark;
+$navbar-default-border: $course-color-dark;
+$navbar-default-link-color: $navbar-default-color;
+$navbar-default-link-hover-color: $white;
+$navbar-default-link-hover-bg: $complement-color;
+$navbar-padding-horizontal: 0;
+$navbar-padding-vertical: 0;
+$navbar-margin-bottom: 0;
+$navbar-height: 50px;
+//$navbar-border-radius: 0;
+$nav-link-padding: 2px;
+$navbar-default-toggle-icon-bar-bg: $complement-color;
+$navbar-default-toggle-border-color: transparent;
+$navbar-default-toggle-hover-bg: transparentize($complement-color, 0.5);
+
+$navbar-default-link-active-color: $white;
+$navbar-default-link-active-bg: $course-color-dark;
+
+// Custom Configuration Variables:
+
+$highlight-default-bg: $complement-color;
+$highlight-default-color: $white;
+
+$course-title-size-base: 40px;
+
+$content-default-bg: $white;
+$content-default-color: $text-color;
+$content-default-border-color: $course-color-dark;
+$content-default-border-size: 1px;
+
+$footer-default-bg: $course-color-lighter;
+$footer-default-color: $text-color;
+$footer-default-border-color: $course-color-dark;
+$footer-default-border-size: 1px;
+
+$widget-default-bg: lighten($course_color, 40%) ;
+$widget-default-padding: $line-height-computed / 2;
+$widget-default-border-color: $course-color-dark;
+$widget-default-border-size: 1px;
+$widget-default-border-radius: 8px;

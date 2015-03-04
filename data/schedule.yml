@@ -1,0 +1,20 @@
+start: 2015-01-13
+end: 2015-04-30
+holidays:
+  - date: 2015-01-27
+  - date: 2015-02-26
+  - date: 2015-03-10
+    name: Spring Break
+  - date: 2015-03-12
+    name: Spring Break
+  - date: 2015-03-19
+meets:
+  - tuesday
+  - thursday
+weeks:
+  1: 'Introduction'
+classes:
+  - |
+    * Course Overview
+  - |
+    * First Full Day of Instructions

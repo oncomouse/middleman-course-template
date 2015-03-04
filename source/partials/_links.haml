@@ -1,0 +1,11 @@
+%ul.nav.navbar-nav
+	- sitemap.resources.select{ |resource| resource.source_file =~ /(:?\.html)/ }.each do |page|
+		- next if page.data['hidden']
+		- link = "Page"
+		- if page.data['page_link_name']
+			- link = page.data['page_link_name']
+		- options = {}
+		- if page.source_file == current_page.source_file
+			- options[:class] = "selected"
+		%li{ :class => page.source_file == current_page.source_file ? 'active' : '' }
+			= link_to link, page.destination_path, options

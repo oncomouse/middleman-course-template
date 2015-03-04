@@ -1,0 +1,212 @@
+@import 'variables';
+@import 'bootstrap';
+
+@mixin widget {
+	margin: 0 auto {
+		bottom: 1em;
+	};
+	border: $widget-default-border-size solid $widget-default-border-color;
+	border-radius: $widget-default-border-radius;
+	background: $widget-default-bg;
+	padding: $widget-default-padding;
+}
+
+
+::-moz-selection {
+	background: $highlight-default-bg;
+	color: $highlight-default-color;
+	text-shadow: none;
+}
+
+::selection {
+	background: $highlight-default-bg;
+	color: $highlight-default-color;
+	text-shadow: none;
+}
+
+
+#container {
+	@include container-fixed;
+	width: 100%;
+	margin: auto;
+	
+	a {
+		transition: color 0.2s ease-out 0s, background-color 0.2s ease-out 0s;
+	}
+	
+	& > header {
+		@include make-row;
+	}
+
+	
+	#colophon {
+		padding: 0;
+	}
+	
+	#course-title {
+		font-family: $font-family-serif !important;
+		text-align: center;
+		font-weight: 400;
+		strong {
+			display: block;
+		}
+	}
+	
+	#course-description {
+		background-color: $navbar-default-bg;
+		font-size: $font-size-small;
+		padding: $line-height-computed 15px ($line-height-computed/2) 15px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		
+	}
+	.navbar-default {
+		border-radius: 5px;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		border-color: transparent;
+		.navbar-collapse {
+			border-color: transparent;
+		}
+		.container-fluid {
+			padding: 0;
+		}
+	}
+	
+	#sidebar {
+		padding: 0;
+		.widget {
+			@include widget;
+		}
+	}
+	
+	#sidebar, #content {
+		margin-top: $line-height-computed;
+	}
+	
+	#content {
+		background-color: $content-default-bg;
+		color: $content-default-color;
+		border: $content-default-border-size solid $content-default-border-color {
+			right: 0;
+		}
+		padding: $line-height-computed;
+		& > *:first-child {
+			margin-top: 0;
+		}
+	}
+	
+	footer {
+		@include make-md-column-offset(4);
+		@include make-md-column(8);
+		
+		margin-top: 6 * $line-height-computed;
+		padding: $line-height-computed /2;
+		padding-bottom: 6 * $line-height-computed;
+		
+		background-color: $footer-default-bg;
+		color: $footer-default-color;
+		font-size: $font-size-small;
+		
+		border: $footer-default-border-size solid $footer-default-border-color {
+			bottom: 0;
+			right: 0;
+		}
+	}
+	.schedule {
+		@include container-fixed;
+		font-size: ceil(1.1 * $font-size-base);
+		.week {
+			@include make-row;
+			margin-top: $line-height-computed;
+			h3 {
+				@include make-xs-column(12);
+			}
+		}
+	}
+}
+
+.navbar-default {
+	ul.navbar-nav {
+		padding-bottom: $line-height-computed / 2;
+		& > li {
+			font-size: $font-size-large;
+			border: 0;
+			border-bottom: 1px solid $navbar-default-border;
+			&:last-child {
+				border-bottom: 0;
+			}
+			& > a {
+				font-size: ceil(1.1 * $font-size-base);
+				background-color: $navbar-default-bg;
+			    padding: ($line-height-computed / 2) 2px;
+			}
+		}
+	}
+}
+
+@media (min-width: $screen-sm-min) {
+	#container {
+		#colophon{
+			padding: {
+				left: 15px;
+				right: 15px;
+			};
+		}
+		.navbar-default {
+			border-radius: 0;
+			background-color: transparent;
+			min-height: $line-height-computed;
+		}
+		#course-description {
+			margin-top: 0;
+			background-color: transparent;
+			border-radius: 0;
+		}
+	}
+	.navbar-default {
+		ul.navbar-nav {
+			padding-bottom: 0;
+			& > li {
+				font-size: $font-size-small;
+				border-bottom: 0;
+				& > a {
+					border-radius: 5px;
+				    margin: 0 0.203em;
+					padding: $nav-link-padding;
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: $screen-md-min) {
+	#container {
+		max-width: $screen-lg-min;
+		margin-top: $line-height-computed;
+		float: right;
+		
+		#course-title, #sidebar {
+			@include make-md-column(4);
+		}
+		#colophon, article#content {
+			@include make-md-column(8);
+		}
+		#sidebar{
+			padding: {
+				left: 15px;
+				right: 15px;
+			};
+		}
+		#course-title {
+			text-align: right;
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-top: $line-height-computed;
+			padding-bottom: 3 * $line-height-computed;
+			border-right: 1px solid;
+			border-right-color: $headings-color;
+			font-size: $course-title-size-base;
+		}
+	}
+}

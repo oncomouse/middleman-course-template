@@ -1,0 +1,1 @@
+Course website made using [middleman-course-template](https://github.com/middleman-course-template) by [Andrew Pilsch](http://andrew.pilsch.com). Made with [Middleman](http://www.middlemanapp.com), [Chronic](https://github.com/mojombo/chronic), [HAML](http://haml.info/), [SASS](http://sass-lang.com/), and [Bootstrap](http://getbootstrap.com).

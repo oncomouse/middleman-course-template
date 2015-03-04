@@ -1,0 +1,12 @@
+- course_title = "Course Title"
+- course_subtitle = "Course Subtitle"
+- if data['course'].has_key? "course_title"
+	- course_title = data["course"]["course_title"]
+	- if course_title =~ / *\: */
+		- (course_title, course_subtitle) = course_title.split(/ *\: */)
+	- else
+		- course_subtitle = nil
+%strong
+	= course_title
+- if not course_subtitle.nil?
+	= course_subtitle
