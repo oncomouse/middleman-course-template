@@ -11,6 +11,11 @@ holidays:
 meets:
   - tuesday
   - thursday
+units:
+  - title: First Unit Title
+    start: 1
+  - title: Second Unit Title
+    start: 4
 weeks:
   1: 'Introduction'
 classes:

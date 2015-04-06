@@ -17,6 +17,7 @@ page_link_name: "Schedule"
 		current_meeting = 0
 		current_day = 0
 		current_week = 1
+		current_unit = 1
 		
 		# Determine the first meeting time (this is complicated because semesters may start on a meeting other than the first that would normally occur in a week; ie. Thursday start for a Tuesday, Thursday class).
 		catch (:done) do
@@ -44,9 +45,16 @@ page_link_name: "Schedule"
 		# Parse through the semester:
 		while today <= data['schedule']['end'] + 1
 			# Open a new week if we're at the start of the week:
-			if current_meeting == 0%>
+			if current_meeting == 0
+				if data['schedule'].has_key?('units') and data['schedule']['units'].index{ |a| a['start'] == current_week }%>
+					<div class="week">
+						<h3>Unit <%=current_unit%>: <%=data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['title'] %></h3>
+					</div>
+				<% 
+					current_unit += 1
+				end %>
 	<div class="week">
-		<h3>Week <%= current_week%> <%= if data['schedule'].has_key? 'weeks' and data['schedule']['weeks'].has_key? current_week then data['schedule']['weeks'][current_week] end %></h3>
+		<h<%=data['schedule'].has_key?('units') ? 4 : 3%>>Week <%= current_week%> <%= if data['schedule'].has_key? 'weeks' and data['schedule']['weeks'].has_key? current_week then data['schedule']['weeks'][current_week] end %></h<%=data['schedule'].has_key?('units') ? 4 : 3%>>
 			<%
 				current_week += 1
 			end 
@@ -87,4 +95,3 @@ page_link_name: "Schedule"
 	
 	end%>
 </div>
-

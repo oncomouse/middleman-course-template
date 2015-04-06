@@ -119,7 +119,7 @@
 		.week {
 			@include make-row;
 			margin-top: $line-height-computed;
-			h3 {
+			h3,h4 {
 				@include make-xs-column(12);
 			}
 		}
