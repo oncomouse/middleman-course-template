@@ -100,6 +100,8 @@ Next comes an array of holidays (`holidays:`). Each holiday needs to begin with 
 
 `meets:` is an array of days of the week on which your class meets. This template uses a natural language processor to translate these into usable `Date` objects in Ruby, so you don't have to worry about capitalization here.
 
+`units`: is an array containing a collection of units (indicated by title and week on which they begin). You can break your syllabus into as many units as you have weeks.
+
 `weeks:` is a hash containing the names of each course week. If you want to assign the first week the title of "Course Introduction", you can type `  1: Course Introduction`. These are totally optional and not having them will not change the behavior of this template.
 
 `classes:` contains an array of days in your course. Each day is indicated by two spaces and `- |` the content of the day starts with four spaces on each line and is written in [Markdown](http://daringfireball.net/projects/markdown/). The course will fill out the weeks and months of your class as it processes this list. If you have too many class meetings, the template will simply stop rendering them when the end of term date (`end:`, discussed above) is reached. If you have too few classes, it will only render those you've provided.
