@@ -113,13 +113,17 @@
 			right: 0;
 		}
 	}
+	.page-header {
+		margin-bottom: $line-height-computed / 2;
+		padding-bottom: $line-height-computed / 4;
+	}
 	.schedule {
 		@include container-fixed;
 		font-size: ceil(1.1 * $font-size-base);
 		.week {
 			@include make-row;
 			margin-top: $line-height-computed;
-			h3, h4 {
+			h3, h4, & > p {
 				@include make-xs-column(12);
 			}
 			.title {
