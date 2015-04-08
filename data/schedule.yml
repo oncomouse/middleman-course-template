@@ -14,6 +14,8 @@ meets:
 units:
   - title: First Unit Title
     start: 1
+    description: |
+      Foobar
   - title: Second Unit Title
     start: 4
 weeks:
