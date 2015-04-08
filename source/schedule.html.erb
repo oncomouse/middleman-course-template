@@ -50,7 +50,7 @@ page_link_name: "Schedule"
 					<div class="week">
 						<h3>Unit <%=current_unit%>: <%=data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['title'] %></h3>
 						<% if data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }].has_key? 'description' %>
-						<p><%= data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['description'] %></p>
+						<p><%= Tilt['markdown'].new { data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['description'] }.render %></p>
 						<%end%>
 					</div>
 				<% 
