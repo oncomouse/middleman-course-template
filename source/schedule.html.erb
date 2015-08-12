@@ -1,5 +1,16 @@
 ---
 page_link_name: "Schedule"
+page_sidebar_widgets:
+- |
+  **Instructor Info**
+  
+  *Name*: Andrew Pilsch
+  
+  *Email*: apilsch AT tamu
+  
+  *Office*: [417 LAAH](http://aggiemap.tamu.edu/?bldg=0275)
+  
+  *Office Hours*: 2-3 TTh, 10-11 MW
 ---
 <%
 	# As a rule, don't edit this file.
@@ -50,7 +61,7 @@ page_link_name: "Schedule"
 					<div class="week">
 						<h3>Unit <%=current_unit%>: <%=data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['title'] %></h3>
 						<% if data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }].has_key? 'description' %>
-						<%= Tilt['markdown'].new { data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['description'] }.render %>
+						<%= Tilt['markdown'].new(config[:markdown]) { data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['description'] }.render %>
 						<%end%>
 					</div>
 				<% 
@@ -80,7 +91,7 @@ page_link_name: "Schedule"
 			%>
 			<%=  
 				# Render the content of the day using Markdown:
-				Tilt['markdown'].new { day }.render %>
+				Tilt['markdown'].new(config[:markdown]) { day }.render %>
 		</div>	
 			<%
 			# Update the next meeting day:
