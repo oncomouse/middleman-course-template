@@ -1,0 +1,177 @@
+---
+layout: false
+hidden: true
+page_sidebar_widgets:
+- |
+  **Instructor Info**
+  
+  *Name*: Andrew Pilsch
+  
+  *Email*: apilsch AT tamu
+  
+  *Office*: [417 LAAH](http://aggiemap.tamu.edu/?bldg=0275)
+  
+  *Office Hours*: 2-3 TTh, 10-11 MW
+---
+- # These are the files to include on this page:
+- files = ['index.html', 'books.html', 'assignments.html', 'policies.html']
+!!! 5
+-# paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+<!--[if lt IE 7]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>	  <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>	  <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if gt IE 8]><!-->
+%html.no-js{ :lang => "en" }
+	<!--<![endif]-->
+	%head
+		%meta{ :charset => "utf-8" }/
+		
+		-# Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		-# Remove this if you use the .htaccess
+		-# %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }/
+
+		%title
+			= data['course']['course_number']
+			- if current_resource.data['page_link_name'] && !(current_resource.source_file.include? "index.html")
+				= " - #{current_resource.data['page_link_name']}"
+
+		%meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }/
+		= stylesheet_link_tag("app.css", :media => "all", :rel => "stylesheet")	
+		/ HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+		<!--[if lt IE 9]>
+		= javascript_include_tag('//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', config[:shared_javascript_prefix] + 'css3-mediaqueries.js', '//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js')
+		<![endif]-->
+		:scss
+			.center-block{
+				float: none !important;
+			}
+			body{
+				background-color: white;
+			}
+			.week {
+				clear: both;
+			}
+			footer {
+				min-height: 18rem;
+			}
+	%body{ :class => page_classes }
+		.container
+			.row
+				.col-md-8.center-block
+					%h1
+						= partial "partials/course-title"
+					%h2 Course Description
+
+					= partial "partials/course-description"
+			.row
+				- if current_page.data.page_sidebar_widgets
+					- current_page.data.page_sidebar_widgets.each do |sidebar_widget|
+						.col-md-4.center-block
+							:markdown
+								#{sidebar_widget}
+			-files.each do |file|
+				.row
+					.col-md-8.center-block
+						:markdown
+							#{File.read(sitemap.find_resource_by_path(file).source_file).split(/^---$/)[-1]}
+			.row
+				.col-md-8.center-block
+					:erb
+						<%
+							# As a rule, don't edit this file.
+							#
+							# If you need to change the course schedule, edit data/schedule.yml
+							#
+							# If you need to change the description, edit source/partials/_schedule-description.md
+						%>
+						<%= partial "partials/schedule-description" %>
+						<div class="schedule">
+							<%if data['schedule'].has_key? 'classes'
+								today = data['schedule']['start']
+								holiday_dates = data['schedule']['holidays'].map { |x| x['date'] }
+								holiday_names = data['schedule']['holidays'].map { |x| x.has_key?('name') ? x['name'] : nil }
+								current_meeting = 0
+								current_day = 0
+								current_week = 1
+								current_unit = 1
+		
+								# Determine the first meeting time (this is complicated because semesters may start on a meeting other than the first that would normally occur in a week; ie. Thursday start for a Tuesday, Thursday class).
+								catch (:done) do
+									data['schedule']['meets'].each do |meeting|
+										if today.strftime('%w').to_i < Chronic.parse(meeting).to_date.strftime('%w').to_i 
+											today = Chronic.parse("next #{meeting}", :now => today).to_date
+											throw :done
+										elsif today.strftime('%w').to_i == Chronic.parse(meeting).to_date.strftime('%w').to_i 
+											throw :done
+										else
+											if current_meeting == 0 %>
+							<div class="week">
+								<h<%=data['schedule'].has_key?('units') ? 4 : 3%>>Week <%= current_week%> <% if data['schedule'].has_key? 'weeks' and data['schedule']['weeks'].has_key? current_week then%><span class="title"><%= data['schedule']['weeks'][current_week]%></span><% end %></h<%=data['schedule'].has_key?('units') ? 4 : 3%>>
+											<%
+												current_week += 1
+											end
+											%>
+								<div class="col-sm-<%=(12 / data['schedule']['meets'].length)%>"></div>
+											<%
+											current_meeting += 1
+										end
+									end
+								end
+
+								# Parse through the semester:
+								while today <= data['schedule']['end'] + 1
+									# Open a new week if we're at the start of the week:
+									if current_meeting == 0
+										if data['schedule'].has_key?('units') and data['schedule']['units'].index{ |a| a['start'] == current_week }%>
+											<div class="week">
+												<h3>Unit <%=current_unit%>: <%=data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['title'] %></h3>
+												<% if data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }].has_key? 'description' %>
+												<%= Tilt['markdown'].new(config[:markdown]) { data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['description'] }.render %>
+												<%end%>
+											</div>
+										<% 
+											current_unit += 1
+										end %>
+							<div class="week">
+								<h<%=data['schedule'].has_key?('units') ? 4 : 3%>>Week <%= current_week%> <% if data['schedule'].has_key? 'weeks' and data['schedule']['weeks'].has_key? current_week then%><span class="title"><%= data['schedule']['weeks'][current_week]%></span><% end %></h<%=data['schedule'].has_key?('units') ? 4 : 3%>>
+									<%
+										current_week += 1
+									end 
+									# Create a new day and print the date:
+									%>
+								<div class="col-sm-<%=(12 / data['schedule']['meets'].length)%>">
+									<p><strong><%=today.strftime('%a %m/%d')%></strong></p>
+									<%
+				
+										# Figure out the day content (either a holiday or out of the schedule):
+										if holiday_dates.index(today).is_a? Integer
+											day = "**No Class**\n\n#{if not holiday_names[holiday_dates.index(today)].nil? then '*' +  holiday_names[holiday_dates.index(today)] + '*' end}"
+										else
+											day = data['schedule']['classes'][current_day]
+											current_day += 1
+										end
+										if day.nil?
+											day = ''
+										end
+									%>
+									<%=  
+										# Render the content of the day using Markdown:
+										Tilt['markdown'].new(config[:markdown]) { day }.render %>
+								</div>	
+									<%
+									# Update the next meeting day:
+									current_meeting += 1
+			
+									# If we're at the end of the week, close the .week div and reset to next week:
+									if current_meeting == data['schedule']['meets'].length%>
+							</div>
+									<%
+										current_meeting = 0
+									end
+									# Generate the next day we will look at in the next iteration of the loop:
+									today = Chronic.parse("next #{data['schedule']['meets'][current_meeting]}", :now => today).to_date
+								end
+	
+							end%>
+						</div>
+		%footer
