@@ -27,6 +27,9 @@ $line-height-computed: $font-size-base * $line-height-base;
 
 $headings-font-weight: 700;
 
+// Font color for the course header / description:
+$header-color: $text-color;
+
 //$grid-float-breakpoint: 992px;
 
 $navbar-default-bg: $course-color-lighter;

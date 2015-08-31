@@ -36,6 +36,12 @@
 	
 	& > header {
 		@include make-row;
+		color: $header-color;
+		h1,h2,h3,h4,h5 {
+			small {
+				color: $header-color;
+			}
+		}
 	}
 
 	
