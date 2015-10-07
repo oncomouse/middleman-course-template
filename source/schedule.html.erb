@@ -1,16 +1,5 @@
 ---
 page_link_name: "Schedule"
-page_sidebar_widgets:
-- |
-  **Instructor Info**
-  
-  *Name*: Andrew Pilsch
-  
-  *Email*: apilsch AT tamu
-  
-  *Office*: [417 LAAH](http://aggiemap.tamu.edu/?bldg=0275)
-  
-  *Office Hours*: 2-3 TTh, 10-11 MW
 ---
 <%
 	# As a rule, don't edit this file.
@@ -59,7 +48,7 @@ page_sidebar_widgets:
 			if current_meeting == 0
 				if data['schedule'].has_key?('units') and data['schedule']['units'].index{ |a| a['start'] == current_week }%>
 					<div class="week">
-						<h3>Unit <%=current_unit%>: <%=data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['title'] %></h3>
+						<h2>Unit <%=current_unit%>: <%=data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['title'] %></h2>
 						<% if data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }].has_key? 'description' %>
 						<%= Tilt['markdown'].new(config[:markdown]) { data['schedule']['units'][data['schedule']['units'].index{ |a| a['start'] == current_week }]['description'] }.render %>
 						<%end%>
@@ -68,7 +57,7 @@ page_sidebar_widgets:
 					current_unit += 1
 				end %>
 	<div class="week">
-		<h<%=data['schedule'].has_key?('units') ? 4 : 3%>>Week <%= current_week%> <% if data['schedule'].has_key? 'weeks' and data['schedule']['weeks'].has_key? current_week then%><span class="title"><%= data['schedule']['weeks'][current_week]%></span><% end %></h<%=data['schedule'].has_key?('units') ? 4 : 3%>>
+		<h<%=data['schedule'].has_key?('units') ? 3 : 2%>>Week <%= current_week%> <% if data['schedule'].has_key? 'weeks' and data['schedule']['weeks'].has_key? current_week then%><span class="title"><%= data['schedule']['weeks'][current_week]%></span><% end %></h<%=data['schedule'].has_key?('units') ? 3 : 2%>>
 			<%
 				current_week += 1
 			end 
@@ -109,4 +98,3 @@ page_sidebar_widgets:
 	
 	end%>
 </div>
-
