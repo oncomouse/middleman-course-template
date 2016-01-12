@@ -85,7 +85,7 @@ end
 # Deployment
 ###
 activate :deploy do |deploy|
-	deploy.method = :rsync
+	deploy.deploy_method = :rsync
 	deploy.user = "some_user"
 	deploy.host = "some_server"
 	deploy.path = "~/www#{config[:build_http_prefix]}"

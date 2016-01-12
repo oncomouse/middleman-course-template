@@ -5,9 +5,14 @@ gem "rake"
 gem "compass", ">=1.0"
 gem "sass", ">=3.3.0"
 gem "builder", ">=3.0"
-gem "middleman", ">= 3.1.4"
+gem "middleman", "~>4.0"
 gem "oj"
-gem "middleman-deploy"
+
+# V4.0 Garbage:
+gem "middleman-deploy", :github => "middleman-contrib/middleman-deploy"
+gem "middleman-sprockets", "~> 4.0.0.rc"
+
+gem "middleman-compass"
 
 gem "chronic"
 
