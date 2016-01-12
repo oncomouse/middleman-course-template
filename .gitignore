@@ -1,6 +1,7 @@
 Gemfile.lock
 build
 source/vendor
+node_modules/
 
 # OS generated files #
 ######################
