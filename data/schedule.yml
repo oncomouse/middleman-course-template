@@ -11,6 +11,9 @@ holidays:
 meets:
   - tuesday
   - thursday
+redefined:
+  - date: 2015-03-25
+    is_a: monday
 units:
   - title: First Unit Title
     start: 1
