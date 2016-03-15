@@ -6,6 +6,7 @@ gem "compass", ">=1.0"
 gem "sass", ">=3.3.0"
 gem "builder", ">=3.0"
 gem "middleman", "~>3.4"
+gem "middleman-deploy"
 gem "oj"
 
 # V4.0 Garbage:
