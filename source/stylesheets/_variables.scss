@@ -15,7 +15,7 @@ $course-color-lighter: lighten($course-color, 40%);
 $brand-primary: $course-color;
 
 $body-bg: $course-color;
-$text-color: $black;
+$text-color: lighten($black, 20%);
 
 $link-color: $course-color-dark;
 $link-hover-color: $complement-color;
