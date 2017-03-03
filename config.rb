@@ -41,7 +41,7 @@ end
 
 ready do
 	proxy "/#{@course_tag}.yml", "/course.yml" if "/#{@course_tag}.yml" != "/course.yml"
-	ignore "/course.yml"
+	ignore "/course.yml" if "/#{@course_tag}.yml" != "/course.yml"
 	ignore "**/*.rb"
 end
 
