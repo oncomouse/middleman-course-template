@@ -22,7 +22,7 @@ units:
   - title: Second Unit Title
     start: 4
 weeks:
-  1: 'Introduction'
+  "1": 'Introduction'
 classes:
   - |
     * Course Overview
