@@ -40,7 +40,7 @@ if config[:shared_javascript_prefix] != "" and config[:shared_javascript_prefix]
 end
 
 ready do
-	proxy "/#{@course_tag}.yml", "/course.yml"
+	proxy "/#{@course_tag}.yml", "/course.yml" if "/#{@course_tag}.yml" != "/course.yml"
 	ignore "/course.yml"
 	ignore "**/*.rb"
 end
