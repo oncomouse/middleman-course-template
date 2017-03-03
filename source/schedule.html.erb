@@ -9,62 +9,71 @@ page_link_name: "Schedule"
 	# If you need to change the description, edit source/partials/_schedule-description.md
 %>
 <%= partial "partials/schedule-description" %>
-<%if data['schedule'].has_key? 'classes'
-	today = data['schedule']['start']
-	holiday_dates = data['schedule']['holidays'].map { |x| x['date'] }
-	holiday_names = data['schedule']['holidays'].map { |x| x.has_key?('name') ? x['name'] : nil }
-	current_meeting = 0
-	current_day = 0
-	current_week = 1
-	current_unit = 1
+<%
+
+def generateScheduleData(schedule)
+	if schedule.has_key? 'classes'
+		today = schedule['start']
+		holiday_dates = schedule['holidays'].map { |x| x['date'] }
+		holiday_names = schedule['holidays'].map { |x| x.has_key?('name') ? x['name'] : nil }
+		current_meeting = 0
+		current_day = 0
+		current_week = 1
+		current_unit = 1
 	
-	data_structure = {
+		data_structure = {
 		
-	}
-	catch (:done) do
-		data['schedule']['meets'].each do |meeting|
-			if today.strftime('%w').to_i < Chronic.parse(meeting).to_date.strftime('%w').to_i 
-				today = Chronic.parse("next #{meeting}", :now => today).to_date
-				throw :done
-			elsif today.strftime('%w').to_i == Chronic.parse(meeting).to_date.strftime('%w').to_i 
-				throw :done
-			else
-				if current_meeting == 0
-					current_week += 1
+		}
+		# Calculate the first class meeting:
+		catch (:done) do
+			schedule['meets'].sort{ |a,b| Chronic.parse(a).to_date.strftime('%w').to_i <=> Chronic.parse(b).to_date.strftime('%w').to_i }.each do |meeting|
+				if today.strftime('%w').to_i < Chronic.parse(meeting).to_date.strftime('%w').to_i 
+					today = Chronic.parse("next #{meeting}", :now => today).to_date
+					throw :done
+				elsif today.strftime('%w').to_i == Chronic.parse(meeting).to_date.strftime('%w').to_i 
+					#current_meeting += 1
+					throw :done
+				else
+					#if current_meeting == 0
+					#	current_week += 1
+					#end
+					current_meeting += 1
 				end
-				current_meeting += 1
 			end
 		end
-	end
 	
-	# Parse through the semester:
-	while today <= data['schedule']['end'] + 1
-		# Figure out the day content (either a holiday or out of the schedule):
-		if holiday_dates.index(today).is_a? Integer
-			day = "**No Class**\n\n#{if not holiday_names[holiday_dates.index(today)].nil? then '*' +  holiday_names[holiday_dates.index(today)] + '*' end}"
-			data_structure[today.to_s] = day
-		else
-			data_structure[today.to_s] = nil
-		end
-		# Update the next meeting day:
-		current_meeting += 1
+		# Parse through the semester:
+		while today <= schedule['end'] + 1
+			# Figure out the day content (either a holiday or out of the schedule):
+			if holiday_dates.index(today).is_a? Integer
+				day = "**No Class**\n\n#{if not holiday_names[holiday_dates.index(today)].nil? then '*' +  holiday_names[holiday_dates.index(today)] + '*' end}"
+				data_structure[today.to_s] = day
+			else
+				data_structure[today.to_s] = nil
+			end
+			# Update the next meeting day:
+			current_meeting += 1
 		
-		# If we're at the end of the week, close the .week div and reset to next week:
-		if current_meeting == data['schedule']['meets'].length
-			current_meeting = 0
+			# If we're at the end of the week, close the .week div and reset to next week:
+			if current_meeting >= schedule['meets'].length
+				current_meeting = 0
+			end
+			# Generate the next day we will look at in the next iteration of the loop:
+			today = Chronic.parse("next #{schedule['meets'][current_meeting]}", :now => today).to_date
 		end
-		# Generate the next day we will look at in the next iteration of the loop:
-		today = Chronic.parse("next #{data['schedule']['meets'][current_meeting]}", :now => today).to_date
-	end
-	if data['schedule'].has_key? 'redefined'
-		data['schedule']['redefined'].each do |redefined_day|
-			if data['schedule']['meets'].index(redefined_day['is_a']) != nil
-				data_structure[redefined_day['date'].to_s] = nil
-			elsif data['schedule']['meets'].index(redefined_day['date'].strftime("%A").downcase) != nil and data['schedule']['meets'].index(redefined_day['is_a']) == nil
-				data_structure[redefined_day['date'].to_s] = "**No Class**\n\n*Redefined Day (Go To #{redefined_day['is_a'].capitalize} Classes)*"
+		
+		# Handle redefined days:
+		if schedule.has_key? 'redefined'
+			schedule['redefined'].each do |redefined_day|
+				if schedule['meets'].index(redefined_day['is_a']) != nil
+					data_structure[redefined_day['date'].to_s] = nil
+				elsif schedule['meets'].index(redefined_day['date'].strftime("%A").downcase) != nil and schedule['meets'].index(redefined_day['is_a']) == nil
+					data_structure[redefined_day['date'].to_s] = "**No Class**\n\n*Redefined Day (Go To #{redefined_day['is_a'].capitalize} Classes)*"
+				end
 			end
 		end
 	end
+	return data_structure
 end
 %>
 <div class="schedule">
@@ -73,6 +82,11 @@ end
 	current_week = 1
 	current_unit = 1
 	current_day = 0
+	
+	# Cache the sorted list of class meetings:
+	sorted_meetings = data['schedule']['meets'].sort{ |a,b| Chronic.parse(a).to_date.strftime('%w').to_i <=> Chronic.parse(b).to_date.strftime('%w').to_i }
+	
+	data_structure = generateScheduleData(data['schedule'])
 	
 	data_structure.keys.sort.each do |today|
 		today = Chronic.parse(today)
