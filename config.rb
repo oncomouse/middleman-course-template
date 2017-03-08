@@ -45,10 +45,12 @@ ready do
 	ignore "**/*.rb"
 end
 
-activate :sprockets
 if defined? RailsAssets
   RailsAssets.load_paths.each do |path|
     sprockets.append_path path
+	compass_config do |config|
+		config.add_import_path path
+	end
   end
 end
 

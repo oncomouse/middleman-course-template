@@ -1,3 +1,3 @@
-//= require 'jquery/dist/jquery'
+//= require 'jquery'
 //= require 'bootstrap'
 //= require 'site'
