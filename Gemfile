@@ -18,5 +18,5 @@ gem "kramdown"
 gem 'wdm', '>= 0.1.0' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 
 source "https://rails-assets.org" do
-	gem "bootstrap-sass-official", ">=3.3.3"
+	gem "rails-assets-bootstrap-sass-official", ">=3.3.3"
 end
