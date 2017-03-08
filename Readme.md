@@ -12,19 +12,18 @@ You [can view a sample course at http://andrew.pilsch.com/courses/sample-course/
 
 * [Ruby](https://www.ruby-lang.org/)
 * [Bundler](http://bundler.io/)
-* [Bower](http://bower.io/)
 
 ### Instructions
 
-To install, run `bower install` from a Terminal, followed by `bundle install`.
+To install, run `bundle install` from a Terminal.
 
 To start the development server, run `middleman` and visit [http://localhost:4567](http://localhost:4567).
 
 ### Tips for Installing Ruby, Bower, & Bundler
 
-Starting from scratch with Middleman, you will need to install [Ruby](https://www.ruby-lang.org) (I *strongly* [recommend using RVM for this](http://rvm.io).), [Node.js](http://nodejs.org/), and [Git](http://git-scm.com/). If you're on a Mac, use [Homebrew](http://brew.sh/) to install Node.js and Git ([here are good instructions for both](http://shapeshed.com/setting-up-nodejs-and-npm-on-mac-osx/)).
+Starting from scratch with Middleman, you will need to install [Ruby](https://www.ruby-lang.org) (I *strongly* [recommend using RVM for this](http://rvm.io).).
 
-Once you have Ruby, Node, and Git working, you can run `npm -g install bower` to install Bower and `gem install bundler` to install the two package management utilities used by this package.
+Once you have Ruby working, you can run `gem install bundler` to install the two package management utilities used by this package.
 
 ## Editing The Course
 
