@@ -19,7 +19,7 @@ To install, run `bundle install` from a Terminal.
 
 To start the development server, run `middleman` and visit [http://localhost:4567](http://localhost:4567).
 
-### Tips for Installing Ruby, Bower, & Bundler
+### Tips for Installing Ruby & Bundler
 
 Starting from scratch with Middleman, you will need to install [Ruby](https://www.ruby-lang.org) (I *strongly* [recommend using RVM for this](http://rvm.io).).
 
