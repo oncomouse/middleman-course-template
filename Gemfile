@@ -7,7 +7,7 @@ gem "sass", ">=3.3.0"
 gem "builder", ">=3.0"
 gem "middleman", "~> 4"
 gem "middleman-compass"
-gem 'middleman-deploy', github: 'middleman-contrib/middleman-deploy', branch: 'master'
+gem 'middleman-deploy', github: 'middleman-contrib/middleman-deploy', ref: '9cd8988a66829550fcbfbb90e306593d6ee9307d'
 gem "middleman-minify-html"
 gem "middleman-sprockets", ">= 4.0.0.rc.2"
 gem "oj"
